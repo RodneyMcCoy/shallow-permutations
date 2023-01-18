@@ -1,0 +1,33 @@
+Count the number of shallow elements. (Equality holds)
+n=1: 2
+n=2: 8
+n=3: 46
+n=4: 316
+n=5: 2358
+n=6: 18276
+n=7: 144152
+
+Count the number of deep elements. (Equality does not hold)
+n=1: 0
+n=2: 0
+n=3: 2
+n=4: 68
+n=5: 1482
+n=6: 27804
+n=7: 500968
+
+Count the number of shallow elements with only one cycle (NOT one pair of cycles) in the cycle decomposition for each n.
+n=2: 2 
+n=3: 8
+n=4: 40
+n=5: 216
+n=6: 1208
+n=7: 6888
+
+After removing 1 cycles:
+n=2: 4
+n=3: 17
+n=4: 88
+n=5: 521
+n=6: 3300
+n=7: 21609

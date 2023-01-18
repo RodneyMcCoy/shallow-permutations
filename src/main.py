@@ -123,9 +123,20 @@ def a_bar_test(c : sigma.n_cube):
 
 
 if(__name__ == "__main__"):
-    equal, not_equal = calculate(4)  
-    
+    equal, not_equal = calculate(7)  
 
+    '''
+    count = 0
+    for i in equal:
+        x = i[0].cycle()
+        ct = 0
+        for j in x:
+            if len(j) > 1:
+                ct += 1
+        if ct==1:
+            count += 1
+    print(count)
+    '''
     
     # Output Results
     Equal = [(str(i[0]), i[2], str(i[1]), metrics.K_n(i[1])) for i in equal]
