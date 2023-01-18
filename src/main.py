@@ -123,7 +123,7 @@ def a_bar_test(c : sigma.n_cube):
 
 
 if(__name__ == "__main__"):
-    equal, not_equal = calculate(7)  
+    equal, not_equal = calculate(3)  
 
     '''
     count = 0
