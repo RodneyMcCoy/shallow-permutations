@@ -53,7 +53,7 @@ def calculate(lower : int, upper : int = -1) -> dict:
                 print("Counter example found, ", pi, k, test)
                 counter_examples += 1
             
-                
+        print()    
         print(n, "- dim search finished")
 
     print("Counterexamples: ", counter_examples, "\t Rate of counterexamples: ", counter_examples/search.count_hypercubes(lower, upper), end = "\n\n")
@@ -94,19 +94,12 @@ def output(data : list, equality : bool):
             write = True
             if write or equality == False:
                 file.write(s + "\n")
-    print("Wrote some data to: " + name + str(".txt"))
+    print("Wrote some data to " + name + str(".txt"))
 
 
 
 
 
-
-def a_bar_test(c : sigma.n_cube):
-    for i in is_equal.a_bar_inv(c):
-        print(i, metrics.K_n(i))
-        a = is_equal.a_bar(i)
-        if a != c:
-            raise Exception("Inverse doesnt work", a, c)
 
 
 
