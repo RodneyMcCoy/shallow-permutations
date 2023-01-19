@@ -11,35 +11,6 @@ import copy
 
 
 
-# Returns true if permutation definitely satisfies equality
-def true(h : sigma.n_cube) -> bool:
-    if len(h) <= 2:
-        return True
-    
-    H = copy.copy(h)
-    
-    if abs(h[len(h)]) == len(h):
-        del H[len(h)]
-        return metrics.K_n(H) == 0     
-    
-    
-    #for i in range(1, len(H)+1):
-    #    H[i] = abs(H[i])
-    
-    
-    
-    return False
-    
-    
-
-# Returns false if permutation definitely does not satisfy equality
-def false(h : sigma.n_cube) -> bool:
-    if metrics.K_n(a_bar(h)) != 0:
-        return False
-
-    return True
-
-
 
 def a_bar(h : sigma.n_cube) -> sigma.n_cube:
     i = copy.copy(h)
@@ -74,28 +45,57 @@ def a_bar_inv(h : sigma.n_cube) -> list:
     return result   
 
 
+def mu_lambda(h : sigma.n_cube):
+    H = a_bar(h)
+    i = h.max_ind()
+    
+    cond1 = True
+    cond2 = True
+    
+    # if abs(i) == len(h):
+        
+    
+    if i > 0:
+        for ind in range(1, i):
+            if H[ind] > H[i]:
+                cond1 = False
+                break
+            
+        for ind1 in range(i+1, len(H)+1):
+            if H[ind1] < H[i]:
+                cond2 = False
+                break
+    else:
+        for ind in range(i, 0):
+            if H[ind] > H[i]:
+                cond1 = False
+                break
+            
+        for ind1 in range(-len(H), i):
+            if H[ind1] < H[i]:
+                cond2 = False
+                break
+    
+    return (cond1 or cond2)
+
+
+
 def test(h : sigma.n_cube) -> bool:
     H = a_bar(h)
     i = h.max_ind()
     
+    if len(h) <= 2:
+        return True
+    
     if metrics.K_n(H) != 0:
         return False
     
-    if abs(h[len(h)]) == len(h):
+    if abs(i) == len(h):
         return metrics.K_n(H) == 0   
+    
+    if abs(i) != len(h):
+        return mu_lambda(h)
 
-    cond1 = True
-    cond2 = True
     
-    for ind in range(1, i):
-        if H[ind] > H[i]:
-            cond1 = False
-            break
-        
-    for ind1 in range(i+1, len(H)+1):
-        if H[ind1] < H[i]:
-            cond2 = False
-            break
-    
-    return cond1 or cond2
+    return -1
     

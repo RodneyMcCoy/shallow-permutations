@@ -39,34 +39,46 @@ class n_cube():
         return self.data != other.data
     
     
+    def index_bounds_check(self, x):
+        if x < - len(self) or x > len(self):
+            s = "An argument of " + str(x) + " was subscripted to " + str(self)
+            s += ", but its out of the range [" + str(-len(self)) + ", " + str(len(self)) + "]\n"
+            raise IndexError(s)
+        if x == 0:
+            s = "A zero was given to a subscript of a n_cube class. This shouldnt happen."
+            raise Exception(s)
+                
+    
     # 1 Index array indexing operator
     def __getitem__(self, x):
+        self.index_bounds_check(x)
+            
         if x < 0:
             return -self.data[abs(x+1)]
         elif x > 0:
             return self.data[x-1]
-        else:
-            raise Exception("A zero was given to a subscript of a n_cube class. This shouldnt happen.")
+
     
     
     # 1 Index array indexing operator
     def __setitem__(self, x, new_val):
+        self.index_bounds_check(x)
+        
         if x < 0:
             self.data[abs(x+1)] = -new_val
         elif x > 0:
             self.data[x-1] = new_val
-        else:
-            raise Exception("A zero was given to a subscript of a n_cube class. This shouldnt happen.")
-            
+
             
     # 1 Index array element deletion operator
     def __delitem__(self, x):
+        self.index_bounds_check(x)
+        
         if x < 0:
             del self.data[abs(x+1)]
         elif x > 0:
             del self.data[x-1]
-        else:
-            raise Exception("A zero was given to a delete subscript of a n_cube class. This shouldnt happen.")
+
         if self.data == []:
             raise Exception("Permutation class has had all elements removed")
             

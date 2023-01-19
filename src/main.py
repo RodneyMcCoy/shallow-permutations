@@ -17,7 +17,6 @@ import metrics
 
 def calculate(lower : int, upper : int = -1) -> dict:
     # Note: Searching gets slow above max_dimension = 5
-    accuracy = 0
     
     if upper == -1:
         upper = lower
@@ -45,28 +44,18 @@ def calculate(lower : int, upper : int = -1) -> dict:
                 Equal.append(temp)      
             else:
                 NotEqual.append(temp)      
+            
 
-            # Test Conditions
-            is_true = is_equal.true(pi)
-            is_false = is_equal.false(pi)
-            
-            # Count Successful condition usage
-            if is_true == True and k == 0:
-                accuracy += 1
-            if is_false == False and k != 0:
-                accuracy += 1
-            
             # Notify if conditions fail
-            if is_true == True and k != 0:
-                print("Counter example found true()", pi)
-            if is_false == False and k == 0:
-                print("Counter example found to false()", pi)
+            test = is_equal.test(pi)
+            if test == -1:
+                print("Test inconclusive on, ", pi, k)
+            elif test != (k==0):
+                print("Counter example found, ", pi, k, test)       
             
                 
         print(n, "- dim search finished")
-    
-    print("Accuracy of Conditions: ", accuracy / search.count_hypercubes(lower, upper))
-    
+
     return Equal, NotEqual     
 
 
@@ -119,12 +108,6 @@ def a_bar_test(c : sigma.n_cube):
 
 
 
-
-
-
-if(__name__ == "__main__"):
-    equal, not_equal = calculate(3)  
-
     '''
     count = 0
     for i in equal:
@@ -137,14 +120,23 @@ if(__name__ == "__main__"):
             count += 1
     print(count)
     '''
+
+
+if(__name__ == "__main__"):
+    equal, not_equal = calculate(4)  
+
+    # Write formatted results to text files
+    output(equal, True)
+    output(not_equal, False)
+
     
-    # Output Results
+    # Write formatted results to variables (to show on the spyder variable explorer)
     Equal = [(str(i[0]), i[2], str(i[1]), metrics.K_n(i[1])) for i in equal]
     NotEqual = [(str(i[0]), i[2], str(i[1]), metrics.K_n(i[1])) for i in not_equal]
     
     
-    output(equal, True)
-    output(not_equal, False)
     
-
+    
+    
+    
     del equal, not_equal
