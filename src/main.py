@@ -17,6 +17,7 @@ import metrics
 
 def calculate(lower : int, upper : int = -1) -> dict:
     # Note: Searching gets slow above max_dimension = 5
+    counter_examples = 0
     
     if upper == -1:
         upper = lower
@@ -48,14 +49,14 @@ def calculate(lower : int, upper : int = -1) -> dict:
 
             # Notify if conditions fail
             test = is_equal.test(pi)
-            if test == -1:
-                print("Test inconclusive on, ", pi, k)
-            elif test != (k==0):
-                print("Counter example found, ", pi, k, test)       
+            if test != (k==0):
+                print("Counter example found, ", pi, k, test)
+                counter_examples += 1
             
                 
         print(n, "- dim search finished")
 
+    print("Counterexamples: ", counter_examples, "\t Rate of counterexamples: ", counter_examples/search.count_hypercubes(lower, upper), end = "\n\n")
     return Equal, NotEqual     
 
 
@@ -72,6 +73,7 @@ def output(data : list, equality : bool):
     with open(name + str(".txt"), 'w+', encoding='utf-8') as file:
         file.read()
         file.write(name + "\n")
+
         for i in data:
             s = str(i[0]) + "  " + str(i[2])  + "\n"
             

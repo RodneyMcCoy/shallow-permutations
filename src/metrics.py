@@ -73,19 +73,13 @@ def D_n(x : sigma.n_cube) -> float:
             val += pi[i] - i
         if pi[i] < 0:
             val += abs(pi[i]) - 1/2
-        
+    
     # calculate b oddness
     decomposition = []
     temp_1 = [0]
     while max(temp_1) < n:
         i = max(temp_1)+1
         temp_1 = []
-        
-        '''
-        while not i in temp_1:
-            temp_1.append(i)
-            i = abs(pi[i])
-        '''
         
         not_finished = False
         while not_finished == False:
@@ -99,9 +93,9 @@ def D_n(x : sigma.n_cube) -> float:
                     not_finished = False
                     i = temp_1[j] + 1
                     break
-                
-        decomposition.append( [i for i in range(min(temp_1), max(temp_1)+1)] )  
         
+        decomposition.append( [i for i in range(min(temp_1), max(temp_1)+1)] )  
+    
     # count sections with odd negative entries
     for d in decomposition:
         count = 0
@@ -110,7 +104,7 @@ def D_n(x : sigma.n_cube) -> float:
                 count += 1
         if count % 2 == 1:
             val += 1/2
-        
+    
     return val
 
 
