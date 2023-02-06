@@ -47,17 +47,14 @@ def a_bar_inv(h : sigma.n_cube) -> list:
 
 
 
-
-def test(h : sigma.n_cube) -> bool:
+def original_test(h : sigma.n_cube) -> bool:
     H = a_bar(h)
     i = h.max_ind()
     
-    if len(h) <= 2:
+    if len(h) <= 1:
         return True
     
-    if metrics.K_n(H) != 0:
-        return False
-    
+
     if abs(i) == len(h):
         return metrics.K_n(H) == 0   
     else:
@@ -89,5 +86,59 @@ def test(h : sigma.n_cube) -> bool:
                     cond2 = False
                     break
         
-        return (cond1 or cond2)
+        return (cond1 or cond2) and (metrics.K_n(H) == 0)
+
+
+
+def test(h : sigma.n_cube) -> bool:
+    H = a_bar(h)
+    i = h.max_ind()
+    
+    if len(h) <= 1:
+        return True
+    
+
+    if abs(i) == len(h):
+        return metrics.K_n(H) == 0   
+    else:
+        cond1 = True
+        cond2 = True
+
+        if i > 0:
+            # Lambda: Left and Above
+            for ind in range(1, i):
+                if H[ind] > H[i]:
+                    cond1 = False
+                    break
+            
+            # Mu: Right and Below
+            for ind1 in range(i+1, len(H)+1):
+                if H[ind1] < H[i]:
+                    cond2 = False
+                    break
+                
+            for ind in range(-len(H), -1+1):
+                if H[ind] > H[i]:
+                    cond1 = False
+                    break
+            
+
+        else:
+            # Lambda: Left and Above
+            for ind in range(-len(H), i):
+                if H[ind] > H[i]:
+                    cond1 = False
+                    break
+              
+            # Mu: Right and Below
+            for ind1 in range(i+1, 0):
+                if H[ind1] < H[i]:
+                    cond2 = False
+                    break
+            for ind1 in range(1, len(H)+1):
+                if H[ind1] < H[i]:
+                    cond2 = False
+                    break
+        
+        return (cond1 or cond2) and (metrics.K_n(H) == 0)
     

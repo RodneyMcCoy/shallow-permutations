@@ -76,15 +76,15 @@ def get_pts(data : list):
 
 # Graphs a single permutation, and its a_bar permutation
 def plot(h : sigma.n_cube):
-    figure, axis = plt.subplots(nrows = 1, ncols=2)
+    figure, axs = plt.subplots(nrows = 1, ncols=2, figsize=(10, 10))
 
     
     x_h = [i for i in range(-len(h), len(h)+1)]
     x_h.remove(0)
     y_h = [h[i] for i in x_h]
     
-    axis[0].scatter(x_h, y_h) 
-    axis[0].set_title(str(h.window()) + "  " + str(metrics.K_n(h)))
+    axs[0].scatter(x_h, y_h) 
+    axs[0].set_title(str(h.window()) + "  " + str(metrics.K_n(h)) + " " + str(is_equal.test(h)) + " " +  str(metrics.D_n(h)))
 
     
     a = is_equal.a_bar(h)
@@ -93,14 +93,17 @@ def plot(h : sigma.n_cube):
     y_a = [a[i] for i in x_a]
     
 
-    axis[1].scatter(x_a, y_a, color="blue")
+    axs[1].scatter(x_a, y_a, color="blue")
     
     x = h.max_ind()
     if x != len(h):
-        axis[1].scatter(x, h[len(h)], color="green")
-        axis[1].scatter(-x, -h[len(h)], color="red")
+        axs[1].scatter(x, h[len(h)], color="green")
+        axs[1].scatter(-x, -h[len(h)], color="red")
 
-    axis[1].set_title(str(a.window()) + "  " + str(metrics.K_n(a)))
+    axs[1].set_title(str(a.window()) + "  " + str(metrics.K_n(a)) + " " +  str(metrics.D_n(a)))
 
-    axis[0].grid()
-    axis[1].grid()
+    axs[0].grid()
+    axs[1].grid()
+
+    for a in axs:
+        a.set_aspect('equal', adjustable='box')
