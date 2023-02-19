@@ -84,7 +84,7 @@ def plot(h : sigma.n_cube):
     y_h = [h[i] for i in x_h]
     
     axs[0].scatter(x_h, y_h) 
-    axs[0].set_title(str(h.window()) + "  " + str(metrics.K_n(h)) + " " + str(is_equal.test(h)) + " " +  str(metrics.D_n(h)))
+    axs[0].set_title(str(h.window()) + "  " + str(is_equal.test(h)) + " " +  str(metrics.signed_decomposition(h)))
 
     
     a = is_equal.a_bar(h)
@@ -100,7 +100,7 @@ def plot(h : sigma.n_cube):
         axs[1].scatter(x, h[len(h)], color="green")
         axs[1].scatter(-x, -h[len(h)], color="red")
 
-    axs[1].set_title(str(a.window()) + "  " + str(metrics.K_n(a)) + " " +  str(metrics.D_n(a)))
+    axs[1].set_title(str(a.window()) + "  " +  str(metrics.signed_decomposition(a)))
 
     axs[0].grid()
     axs[1].grid()

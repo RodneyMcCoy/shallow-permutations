@@ -139,6 +139,6 @@ def test(h : sigma.n_cube) -> bool:
                 if H[ind1] < H[i]:
                     cond2 = False
                     break
-        
+                
         return (cond1 or cond2) and (metrics.K_n(H) == 0)
     

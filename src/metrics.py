@@ -62,25 +62,32 @@ def EX_n(pi : sigma.n_cube) -> float:
 
 # In: A Signed Permutation in 1 line notation
 # Out: Depth of permutation, as shown in "depth in classic coxeter groups"
-def D_n(x : sigma.n_cube) -> float:
-    pi = x.normal()
+def D_n(x : sigma.n_cube) -> float:    
     val = 0
-    n = max(pi.keys())
-    
     # calculate everything except b oddness
-    for i in range(1, n +1):
-        if pi[i] > i:
-            val += pi[i] - i
-        if pi[i] < 0:
-            val += abs(pi[i]) - 1/2
+    for i in range(1, len(x) +1):
+        if x[i] > i:
+            val += x[i] - i
+        if x[i] < 0:
+            val += abs(x[i]) - 1/2
     
     # calculate b oddness
-    decomposition = []
+    val += b_oddness(x)/2
+    
+    return val
+
+
+
+def signed_decomposition(x : sigma.n_cube):
+    pi = x.normal()
+    n = max(pi.keys())
+    
+    decomp = []
     temp_1 = [0]
     while max(temp_1) < n:
         i = max(temp_1)+1
         temp_1 = []
-        
+    
         not_finished = False
         while not_finished == False:
             while not i in temp_1:
@@ -93,21 +100,31 @@ def D_n(x : sigma.n_cube) -> float:
                     not_finished = False
                     i = temp_1[j] + 1
                     break
-        
-        decomposition.append( [i for i in range(min(temp_1), max(temp_1)+1)] )  
+    
+        decomp.append( [i for i in range(min(temp_1), max(temp_1)+1)] )  
+    
+    for i in range(len(decomp)):
+        for j in range(len(decomp[i])):
+            decomp[i][j] = x[decomp[i][j]]
+    
+    return decomp
+    
+
+
+def b_oddness(x : sigma.n_cube):
+    decomp = signed_decomposition(x)
     
     # count sections with odd negative entries
-    for d in decomposition:
+    val = 0
+
+    for D in decomp:
         count = 0
-        for i in d:
-            if pi[i] < 0:
+        for d in D:
+            if d < 0:
                 count += 1
         if count % 2 == 1:
-            val += 1/2
-    
+            val += 1
     return val
-
-
 
 
 
