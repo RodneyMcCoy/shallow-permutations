@@ -76,7 +76,13 @@ def D_n(x : sigma.n_cube) -> float:
     
     return val
 
-
+def D2_n(x : sigma.n_cube) -> float:
+    val = 0
+    for i in range(- len(x), len(x)+1):
+        if i == 0 or x[i] <= i:
+            continue
+        val += x[i] - i
+    return val
 
 def signed_decomposition(x : sigma.n_cube):
     pi = x.normal()
