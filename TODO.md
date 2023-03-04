@@ -1,2 +1,3 @@
-2. Count the number of shallow elements with only one cycle (NOT one pair of cycles) in the cycle decomposition for each n.  (The hope is that the answers here are the Schroeder numbers: 1, 2, 6, 22, 90, 394, 1806, … - but it’s worth typing the sequence into the OEIS if it’s something else.)
-3. Find conjecture, make sure conjecture for type A does not work
+- depth takes pi's decomposition into two cycles, and minimizes the sum over the 2nd - 1st of each entry
+- length minimizes adjacent transpositions to bring it to the identity and counts them |j-i| (i+j-1) i
+- reflection length counts cycles of the form (i, j, k, ...) (-i, -j -k, ....) or (i, -i) 
